@@ -1,22 +1,10 @@
 "use client";
-import * as Tone from "tone";
 
-export default function SynthPiano() {
-  // 音を再生する関数
-  const playNote = (note: string) => {
-    const synth = new Tone.Synth({
-      oscillator: { type: "triangle" },
-      envelope: {
-        attack: 0.02,
-        decay: 0.1,
-        sustain: 0.3,
-        release: 0.5,
-      },
-    }).toDestination();
-    synth.triggerAttackRelease(note, "8n");
-  };
+interface PianoProps {
+  playNote: (note: string) => void; // ✅ `playNote` の型を定義
+}
 
-  // 1オクターブ分（C4～B4）の鍵盤リスト
+export default function Piano({ playNote }: PianoProps) {
   const notes = [
     { note: "C4", type: "white" },
     { note: "C#4", type: "black", position: "left-[33px]" },
@@ -30,8 +18,6 @@ export default function SynthPiano() {
     { note: "A4", type: "white" },
     { note: "A#4", type: "black", position: "left-[355px]" },
     { note: "B4", type: "white" },
-
-
     { note: "C5", type: "white" },
     { note: "C#5", type: "black", position: "left-[483px]" },
     { note: "D5", type: "white" },
@@ -44,26 +30,25 @@ export default function SynthPiano() {
     { note: "A5", type: "white" },
     { note: "A#5", type: "black", position: "left-[805px]" },
     { note: "B5", type: "white" },
-
-  ]
+  ];
 
   return (
-    <div className="relative flex items-center justify-center p-4 bg-gray-900 rounded-lg">
+    <div className='relative flex items-center justify-center p-4 bg-gray-900 rounded-lg'>
       {/* 白鍵 */}
-      <div className="relative flex">
+      <div className='relative flex'>
         {notes
           .filter(({ type }) => type === "white")
           .map(({ note }) => (
             <button
               key={note}
               onClick={() => playNote(note)}
-              className="w-16 h-48 bg-white border border-gray-700 rounded-lg shadow-md active:bg-gray-300"
+              className='w-16 h-48 bg-white border border-gray-700 rounded-lg shadow-md active:bg-gray-300'
             />
           ))}
       </div>
 
       {/* 黒鍵（正しい位置に配置） */}
-      <div className="absolute flex top-0 left-6">
+      <div className='absolute flex top-3 left-6'>
         {notes
           .filter(({ type }) => type === "black")
           .map(({ note, position }) => (
