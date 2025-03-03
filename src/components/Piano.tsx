@@ -86,7 +86,7 @@ export default function Piano({ playNote }: PianoProps) {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
-  
+
   return (
     <div className='relative flex items-center justify-center p-4 bg-gray-900 rounded-lg'>
       {/* 白鍵 */}
@@ -95,11 +95,11 @@ export default function Piano({ playNote }: PianoProps) {
           .filter(({ type }) => type === "white")
           .map(({ note }) => (
             <button
-            id={note}
-            key={note}
-            onClick={() => playNote(note)}
-            className="w-16 h-48 bg-white border border-gray-700 rounded-lg shadow-md active:bg-gray-300"
-         />
+              id={note}
+              key={note}
+              onClick={() => playNote(note)}
+              className='w-16 h-48 bg-white border border-gray-700 rounded-lg shadow-md active:bg-gray-300'
+            />
           ))}
       </div>
 
