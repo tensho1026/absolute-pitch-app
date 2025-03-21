@@ -40,11 +40,11 @@ export default function PianoPage() {
   };
 
   return (
-    <div className='relative min-h-screen bg-gray-100 flex flex-col justify-end'>
-    {/* スライダー（右上に配置） */}
-    <div className='absolute top-4 right-0 w-auto bg-gray-800 p-4 rounded-lg shadow-lg transform scale-50 '>
+    <div className='relative max-h-screen bg-gray-100 flex flex-col justify-end'>
+      {/* スライダー（右上に配置） */}
+      <div className='absolute top-4 right-0 w-auto bg-gray-800 p-4 rounded-lg shadow-lg transform scale-50 '>
         <Slider
-          label="Attack"
+          label='Attack'
           value={attack}
           min={0}
           max={1}
@@ -52,7 +52,7 @@ export default function PianoPage() {
           onChange={setAttack}
         />
         <Slider
-          label="Decay"
+          label='Decay'
           value={decay}
           min={0}
           max={1}
@@ -60,7 +60,7 @@ export default function PianoPage() {
           onChange={setDecay}
         />
         <Slider
-          label="Sustain"
+          label='Sustain'
           value={sustain}
           min={0}
           max={1}
@@ -68,7 +68,7 @@ export default function PianoPage() {
           onChange={setSustain}
         />
         <Slider
-          label="Release"
+          label='Release'
           value={release}
           min={0}
           max={1}
@@ -76,10 +76,10 @@ export default function PianoPage() {
           onChange={setRelease}
         />
       </div>
-      <Score/>
 
       {/* ピアノUI（画面下に配置） */}
-      <div className="flex flex-col items-center justify-end min-h-screen pb-12">
+      <div className='flex flex-col items-center justify-end min-h-screen pb-12'>
+        <Score />
         <Piano playNote={playNote} />
       </div>
     </div>
