@@ -1,9 +1,12 @@
 "use client";
 import Piano from "@/components/Piano";
+import Score from "@/components/Score";
 import Slider from "@/components/Slider";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as Tone from "tone";
+
+let synth: Tone.Synth;
 
 export default function PianoPage() {
   // スライダーの値を管理する state
@@ -12,21 +15,36 @@ export default function PianoPage() {
   const [sustain, setSustain] = useState(0.3);
   const [release, setRelease] = useState(0.5);
 
-  // 音を再生する関数（Piano.tsx に渡す）
-  const playNote = (note: string) => {
-    const synth = new Tone.Synth({
+  // シンセサイザーの初期化
+  useEffect(() => {
+    synth = new Tone.Synth({
       oscillator: { type: "triangle" },
       envelope: { attack, decay, sustain, release },
     }).toDestination();
+  }, []);
+
+  // スライダーの値が変わったときにシンセサイザーを更新
+  useEffect(() => {
+    if (synth) {
+      synth.envelope.attack = attack;
+      synth.envelope.decay = decay;
+      synth.envelope.sustain = sustain;
+      synth.envelope.release = release;
+    }
+  }, [attack, decay, sustain, release]);
+
+  // 音を再生する関数（Piano.tsx に渡す）
+  const playNote = async (note: string) => {
+    await Tone.start();
     synth.triggerAttackRelease(note, "8n");
   };
 
   return (
     <div className='relative min-h-screen bg-gray-100 flex flex-col justify-end'>
-      {/* スライダー（右上に配置） */}
-      <div className='absolute top-4 right-0 w-auto bg-gray-800 p-4 rounded-lg shadow-lg transform scale-50 '>
+    {/* スライダー（右上に配置） */}
+    <div className='absolute top-4 right-0 w-auto bg-gray-800 p-4 rounded-lg shadow-lg transform scale-50 '>
         <Slider
-          label='Attack'
+          label="Attack"
           value={attack}
           min={0}
           max={1}
@@ -34,7 +52,7 @@ export default function PianoPage() {
           onChange={setAttack}
         />
         <Slider
-          label='Decay'
+          label="Decay"
           value={decay}
           min={0}
           max={1}
@@ -42,7 +60,7 @@ export default function PianoPage() {
           onChange={setDecay}
         />
         <Slider
-          label='Sustain'
+          label="Sustain"
           value={sustain}
           min={0}
           max={1}
@@ -50,7 +68,7 @@ export default function PianoPage() {
           onChange={setSustain}
         />
         <Slider
-          label='Release'
+          label="Release"
           value={release}
           min={0}
           max={1}
@@ -58,9 +76,10 @@ export default function PianoPage() {
           onChange={setRelease}
         />
       </div>
+      <Score/>
 
       {/* ピアノUI（画面下に配置） */}
-      <div className='flex flex-col items-center justify-end min-h-screen pb-12'>
+      <div className="flex flex-col items-center justify-end min-h-screen pb-12">
         <Piano playNote={playNote} />
       </div>
     </div>
