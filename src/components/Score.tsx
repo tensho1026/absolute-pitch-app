@@ -4,6 +4,8 @@ import { useState } from "react";
 const scores = [
   { name: "Twinkle Twinkle Little Star", file: "/kirakira.png" },
   { name: "Happy Birthday", file: "/happy.jpg" },
+  { name: "score1", file: "/score1.jpg" },
+  { name: "score2", file: "/score2.jpg" },
 ];
 
 function Score() {
@@ -21,12 +23,17 @@ function Score() {
           </option>
         ))}
       </select>
-      <img
-        src={selectedScore}
-        alt="Sheet Music"
-        className="w-full max-w-md bg-white p-4 rounded shadow-lg"
-      />
+      <div className="w-full max-w-md bg-white p-4 rounded shadow-lg">
+        <div className="w-full h-80 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
+          <img
+            src={selectedScore}
+            alt="Sheet Music"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
     </div>
   );
 }
-export default Score
+
+export default Score;
