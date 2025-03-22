@@ -16,7 +16,7 @@ export default function Home() {
   }, [isLoaded, isSignedIn]);
 
   // ロード中の表示
-  if (!isLoaded) return <div>Loading...</div>;
+  // if (!isLoaded) return <div>Loading...</div>;
   return (
     <div className='min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4'>
       {/* Authentication button in top-right corner */}
