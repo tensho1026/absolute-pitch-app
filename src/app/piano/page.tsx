@@ -113,8 +113,9 @@ import {
 import { Button } from "@/components/button";
 import PianoKeyboard from "@/components/Piano";
 import SheetMusic from "@/components/sheetScore";
-import { Slider } from "@radix-ui/react-slider";
+
 import Link from "next/link";
+import { Slider } from "@/components/Slider";
 
 export default function PianoPage() {
   const [currentSong, setCurrentSong] = useState("twinkle");
