@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Music, BookOpen, LogIn } from "lucide-react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import HamburgerMenu from "@/components/HamburgerMenu";
 
 export default function Home() {
   const { isSignedIn, isLoaded } = useUser();
@@ -18,9 +19,12 @@ export default function Home() {
   // ロード中の表示
   // if (!isLoaded) return <div>Loading...</div>;
   return (
-    <div className='min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4'>
+    <div className='relative min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4'>
+      <div className='absolute top-0 left-0'>
+        <HamburgerMenu />
+      </div>
       {/* Authentication button in top-right corner */}
-      <div className='absolute top-4 right-4 z-20'>
+      <div className='absolute top-4 right-4 z-20 flex flex-row'>
         {signedIn ? (
           // ログインしている場合はUserButtonを表示
           <div className='scale-150'>
