@@ -74,7 +74,7 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="/tech"
                 className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
               >
                 <Info size={18} />
