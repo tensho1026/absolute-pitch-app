@@ -11,12 +11,12 @@ export default function TechCard({ name, description, icon }: TechCardProps) {
   return (
     <div className="bg-[#1a2642] bg-opacity-70 rounded-lg p-6 h-full transition-all duration-300 hover:bg-opacity-90">
       <div className="flex flex-col items-center text-center">
-        <div className="bg-[#f7c948] rounded-full p-4 w-16 h-16 flex items-center justify-center mb-4">
+        <div className=" rounded-full p-4 w-[100px] h-[100px] flex items-center justify-center mb-4">
           <Image
             src={icon || "/placeholder.svg"}
             alt={`${name} logo`}
-            width={32}
-            height={32}
+            width={50}
+            height={50}
             className="object-contain"
           />
         </div>
