@@ -1,29 +1,33 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Music, BookOpen, Dumbbell, Trophy, Info } from "lucide-react"
+import { useState } from "react";
+import { Music, BookOpen, Dumbbell, Trophy, Info } from "lucide-react";
 
 const HamburgerMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="absolute top-4 left-4 z-50">
+    <div className='absolute top-4 left-4 z-50'>
       {/* ハンバーガーボタン */}
       <button
-        className="flex items-center justify-center w-10 h-10 p-2 bg-[#111827] text-white rounded-md hover:bg-[#1a2438] transition-colors duration-300"
+        className='flex items-center justify-center w-10 h-10 p-2 bg-[#111827] text-white rounded-md hover:bg-[#1a2438] transition-colors duration-300'
         onClick={toggleMenu}
       >
-        <div className="space-y-1">
+        <div className='space-y-1'>
           <span
             className={`block w-6 h-0.5 bg-white transform transition duration-300 ${
               isOpen ? "rotate-45 translate-y-1.5" : ""
             }`}
           ></span>
-          <span className={`block w-6 h-0.5 bg-white transition duration-300 ${isOpen ? "opacity-0" : ""}`}></span>
+          <span
+            className={`block w-6 h-0.5 bg-white transition duration-300 ${
+              isOpen ? "opacity-0" : ""
+            }`}
+          ></span>
           <span
             className={`block w-6 h-0.5 bg-white transform transition duration-300 ${
               isOpen ? "-rotate-45 -translate-y-1.5" : ""
@@ -34,12 +38,12 @@ const HamburgerMenu = () => {
 
       {/* メニュー */}
       {isOpen && (
-        <div className="absolute top-full left-0 bg-[#111827] text-white p-4 mt-2 rounded-md shadow-lg z-50 border border-white/10 min-w-[200px]">
-          <ul className="space-y-3 flex flex-col">
+        <div className='absolute top-full left-0 bg-[#111827] text-white p-4 mt-2 rounded-md shadow-lg z-50 border border-white/10 min-w-[200px]'>
+          <ul className='space-y-3 flex flex-col'>
             <li>
               <a
-                href="/piano"
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
+                href='/piano'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Music size={18} />
                 <span>Play Piano</span>
@@ -47,8 +51,8 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href="#"
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
+                href='#'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <BookOpen size={18} />
                 <span>Take Quiz</span>
@@ -56,8 +60,8 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href="#"
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
+                href='#'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Dumbbell size={18} />
                 <span>Practice</span>
@@ -65,8 +69,8 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href="#"
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
+                href='#'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Trophy size={18} />
                 <span>Ranking</span>
@@ -74,8 +78,8 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href="/tech"
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200"
+                href='/tech'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Info size={18} />
                 <span>使用技術の説明</span>
@@ -85,8 +89,7 @@ const HamburgerMenu = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default HamburgerMenu
-
+export default HamburgerMenu;
