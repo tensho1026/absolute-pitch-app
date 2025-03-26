@@ -15,6 +15,7 @@ import SheetMusic from "@/components/sheetScore";
 
 import Link from "next/link";
 import { Slider } from "@/components/Slider";
+import PianoHelpModal from "@/components/pianoModal";
 
 export default function PianoPage() {
   const [currentSong, setCurrentSong] = useState("twinkle");
@@ -54,6 +55,9 @@ export default function PianoPage() {
             </Select>
           </div>
           <div className='w-6'></div> {/* Spacer for balance */}
+        </div>
+        <div className=''>
+          <PianoHelpModal />
         </div>
       </header>
 

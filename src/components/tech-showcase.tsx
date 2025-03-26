@@ -11,35 +11,49 @@ export default function TechShowcase() {
     {
       name: "Next.js",
       description:
-        "React framework for production that enables server-side rendering and static site generation for React applications.",
+        "Reactベースのフレームワークで、サーバーサイドレンダリングや静的サイト生成をサポート。SEOやパフォーマンスが向上し、Fullstack開発に適しているため採用しました。",
       icon: "/next.png",
       color: "#f7c948",
     },
     {
       name: "TypeScript",
       description:
-        "Strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
+        "JavaScriptに型付けを加えることで、コードの安全性と可読性を向上。型エラーを防ぎ、大規模プロジェクトでも保守しやすいため導入しました。",
       icon: "/ts.png",
+      color: "#f7c948",
+    },
+    {
+      name: "Tailwindcss",
+      description:
+        "ユーティリティファーストのCSSフレームワークで、デザインを効率的に実現。直感的なクラス名でカスタマイズがしやすく、レスポンシブ対応が容易なため活用しました。",
+      icon: "/css.png",
+      color: "#f7c948",
+    },
+    {
+      name: "Shadnc/ui",
+      description:
+        "ReactとTailwind CSSを組み合わせたUIコンポーネントライブラリで、美しくモダンなデザインを迅速に実現。使い勝手の良いUIを効率的に構築できるため、採用しました。",
+      icon: "/shad.png",
       color: "#f7c948",
     },
     {
       name: "Clerk",
       description:
-        "Complete user management solution with authentication, user profiles, and access control.",
+        "ユーザー認証やプロフィール管理を手軽に実現できるフルスタック認証ソリューション。認証周りの複雑さを解消し、安全かつ迅速に導入できるため選びました。",
       icon: "/clerk.png",
       color: "#f7c948",
     },
     {
       name: "Supabase",
       description:
-        "Open source Firebase alternative with a PostgreSQL database, authentication, and storage.",
+        "オープンソースのFirebase代替で、PostgreSQLをベースにデータベースや認証機能を提供。リアルタイム通信が可能で、バックエンドを効率的に構築できるため採用しました。",
       icon: "/supabase.png",
       color: "#f7c948",
     },
     {
       name: "Tone.js",
       description:
-        "Web audio framework for creating interactive music in the browser, with advanced scheduling and audio processing capabilities.",
+        "ブラウザ上で音楽や音声を扱うためのWebオーディオフレームワーク。高度なスケジューリングや音響処理が可能で、音感トレーニングアプリの基盤として活用しました。",
       icon: "/tone.png",
       color: "#f7c948",
     },
