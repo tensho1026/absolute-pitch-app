@@ -1,12 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const scores = [
-  { name: "Twinkle Twinkle Little Star", file: "/kirakira.png" },
-  // { name: "Happy Birthday", file: "/happy.jpg" },
-  // { name: "score1", file: "/score1.jpg" },
-  // { name: "score2", file: "/score2.jpg" },
-];
+const scores = [{ name: "Twinkle Twinkle Little Star", file: "/kirakira.png" }];
 
 function Score() {
   const [selectedScore, setSelectedScore] = useState(scores[0].file);

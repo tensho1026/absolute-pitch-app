@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import * as Tone from "tone"
-import type { ADSREnvelope } from "@/lib/utils"
+import { useState, useEffect, useRef } from "react";
+import * as Tone from "tone";
+import type { ADSREnvelope } from "@/lib/utils";
 
 interface UseSoundEngineProps {
-  adsr: ADSREnvelope
+  adsr: ADSREnvelope;
 }
 
 export function useSoundEngine({ adsr }: UseSoundEngineProps) {
-  const synth = useRef<Tone.PolySynth | null>(null)
-  const [isInitialized, setIsInitialized] = useState(false)
+  const synth = useRef<Tone.PolySynth | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize the synth
   useEffect(() => {
     // Create synth only on client side
     if (typeof window !== "undefined") {
-      synth.current = new Tone.PolySynth(Tone.Synth).toDestination()
-      setIsInitialized(true)
+      synth.current = new Tone.PolySynth(Tone.Synth).toDestination();
+      setIsInitialized(true);
 
       // Clean up on unmount
       return () => {
         if (synth.current) {
-          synth.current.dispose()
-          synth.current = null
+          synth.current.dispose();
+          synth.current = null;
         }
-      }
+      };
     }
-  }, [])
+  }, []);
 
   // Update ADSR when it changes
   useEffect(() => {
@@ -39,9 +39,9 @@ export function useSoundEngine({ adsr }: UseSoundEngineProps) {
           sustain: adsr.sustain,
           release: adsr.release,
         },
-      })
+      });
     }
-  }, [adsr])
+  }, [adsr]);
 
   // Function to play a note
   const playNote = (note: string, duration = "8n") => {
@@ -49,13 +49,13 @@ export function useSoundEngine({ adsr }: UseSoundEngineProps) {
       // Initialize Tone.js if not already done
       Tone.start().then(() => {
         if (synth.current) {
-          synth.current.triggerAttackRelease(note, duration)
+          synth.current.triggerAttackRelease(note, duration);
         }
-      })
+      });
     } else {
-      synth.current.triggerAttackRelease(note, duration)
+      synth.current.triggerAttackRelease(note, duration);
     }
-  }
+  };
 
   // Function to play a chord
   const playChord = (notes: string[], duration = "8n") => {
@@ -63,50 +63,46 @@ export function useSoundEngine({ adsr }: UseSoundEngineProps) {
       // Initialize Tone.js if not already done
       Tone.start().then(() => {
         if (synth.current) {
-          synth.current.triggerAttackRelease(notes, duration)
+          synth.current.triggerAttackRelease(notes, duration);
         }
-      })
+      });
     } else {
-      synth.current.triggerAttackRelease(notes, duration)
+      synth.current.triggerAttackRelease(notes, duration);
     }
-  }
+  };
 
   // Function to play a sequence of notes
   const playSequence = (notes: string[], tempo = 120) => {
-    if (!isInitialized) return
+    if (!isInitialized) return;
 
-    const noteLength = 60 / tempo
+    const noteLength = 60 / tempo;
 
     // Create a sequence
     const seq = new Tone.Sequence(
       (time, note) => {
         if (synth.current) {
-          synth.current.triggerAttackRelease(note, "8n", time)
+          synth.current.triggerAttackRelease(note, "8n", time);
         }
       },
       notes,
-      noteLength,
-    )
+      noteLength
+    );
 
     // Start the sequence
-    seq.start(0)
-    Tone.Transport.start()
+    seq.start(0);
+    Tone.Transport.start();
 
     // Stop after playing all notes
-    setTimeout(
-      () => {
-        seq.stop()
-        seq.dispose()
-      },
-      noteLength * notes.length * 1000 + 500,
-    )
-  }
+    setTimeout(() => {
+      seq.stop();
+      seq.dispose();
+    }, noteLength * notes.length * 1000 + 500);
+  };
 
   return {
     playNote,
     playChord,
     playSequence,
     isInitialized,
-  }
+  };
 }
-
