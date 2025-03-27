@@ -117,7 +117,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -183,9 +182,9 @@ export default function PianoKeyboard({
   };
 
   return (
-    <div className="relative h-64 w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border-t border-gray-700">
+    <div className='relative h-64 w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border-t border-gray-700'>
       {/* White keys */}
-      <div className="flex h-full">
+      <div className='flex h-full'>
         {Array.from({ length: octaveCount * 7 }).map((_, i) => {
           const octave = startOctave + Math.floor(i / 7);
           const note = `${whiteKeys[i % 7]}${octave}`;
@@ -199,14 +198,14 @@ export default function PianoKeyboard({
               }`}
               onClick={() => playNote(note)}
             >
-              <span className="text-gray-500 text-xs font-medium">{note}</span>
+              <span className='text-gray-500 text-xs font-medium'>{note}</span>
             </button>
           );
         })}
       </div>
 
       {/* Black keys */}
-      <div className="absolute top-0 left-0 h-3/5 w-full pointer-events-none flex">
+      <div className='absolute top-0 left-0 h-3/5 w-full pointer-events-none flex'>
         {Array.from({ length: octaveCount * 7 }).map((_, i) => {
           const octave = startOctave + Math.floor(i / 7);
           const whiteKeyIndex = i % 7;
@@ -216,18 +215,22 @@ export default function PianoKeyboard({
           const note = `${blackKeys[blackKeyIndex]}${octave}`;
           const isActive = activeKeys.includes(note);
 
-          const leftOffset = i * (100 / (octaveCount * 7)) + (100 / (octaveCount * 14));
+          const leftOffset =
+          i * (100 / (octaveCount * 7)) + (100 / (octaveCount * 14)) * 1.4;
+        
 
           return (
             <button
               key={`black-${note}`}
-              className={`absolute h-full w-[calc(100%/${octaveCount * 14})] bg-gray-900 hover:bg-gray-800 active:bg-gray-700 rounded-b-sm pointer-events-auto transition-colors ${
+              className={`absolute h-full w-[calc(100%/${
+                octaveCount * 14
+              })] bg-gray-900 hover:bg-gray-800 active:bg-gray-700 rounded-b-sm pointer-events-auto transition-colors ${
                 isActive ? "bg-gray-700" : ""
               }`}
               style={{ left: `${leftOffset}%` }}
               onClick={() => playNote(note)}
             >
-              <span className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-[10px]">
+              <span className='absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-[10px]'>
                 {note}
               </span>
             </button>
