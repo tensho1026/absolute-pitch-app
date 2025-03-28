@@ -1,23 +1,28 @@
 "use client";
 import Link from "next/link";
-import { Music, BookOpen, LogIn } from "lucide-react";
+import { Music, BookOpen, LogIn, Flame } from "lucide-react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import { UserResource } from "@clerk/types";
 
 export default function Home() {
-  const { isSignedIn, isLoaded } = useUser();
   const [signedIn, setSignedIn] = useState(false);
+  const { user, isLoaded } = useUser();
 
-  // ログイン状態の変化を監視
   useEffect(() => {
-    if (isLoaded) {
-      setSignedIn(isSignedIn);
-    }
-  }, [isLoaded, isSignedIn]);
+    const savefunc = async () => {
+      if (isLoaded && user) {
+        console.log("🟢 useEffect 実行！ユーザー情報:", user);
+        saveUserToDatabase(user); // 🔹 `user` を渡す
+        setSignedIn(true);
+      } else {
+        console.error("❌ Clerk のユーザー情報が取得できていません", user);
+      }
+    };
+    savefunc();
+  }, [user, isLoaded]);
 
-  // ロード中の表示
-  // if (!isLoaded) return <div>Loading...</div>;
   return (
     <div className='relative min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4'>
       <div className='absolute top-0 left-0'>
@@ -85,9 +90,9 @@ export default function Home() {
           <Link href='/quiz' className='w-full group'>
             <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
               <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center shadow-lg'>
-                <BookOpen className='w-8 h-8 text-slate-900' />
+                <Flame className='w-8 h-8 text-slate-900' />
               </div>
-              <h2 className='text-2xl font-bold text-white mb-2'>Take Quiz</h2>
+              <h2 className='text-2xl font-bold text-white mb-2'>Challenge</h2>
               <p className='text-slate-400 text-sm'>
                 Test your absolute pitch with our challenges
               </p>
@@ -181,4 +186,7 @@ export default function Home() {
       </div>
     </div>
   );
+}
+function saveUserToDatabase(user: UserResource) {
+  throw new Error("Function not implemented.");
 }
