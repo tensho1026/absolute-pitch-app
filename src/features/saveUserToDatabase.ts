@@ -13,14 +13,17 @@ export async function saveUserToDatabase(user: any) {
     const userId = user.id;
     const username = user.fullName || "Unknown";
 
-    console.log("🟢 Supabase に保存するデータ:", { userId, username});
+    console.log("🟢 Supabase に保存するデータ:", { userId, username });
 
-    const { data, error } = await supabase.from("User").upsert([
-      {
-        id: userId,
-        username,
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("User")
+      .upsert([
+        {
+          id: userId,
+          username,
+        },
+      ])
+      .select();
 
     if (error) {
       console.error(
