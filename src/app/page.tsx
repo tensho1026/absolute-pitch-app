@@ -5,23 +5,20 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { UserResource } from "@clerk/types";
+import { saveUserToDatabase } from "@/features/saveUserToDatabase";
 
 export default function Home() {
-  const [signedIn, setSignedIn] = useState(false);
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
 
   useEffect(() => {
-    const savefunc = async () => {
-      if (isLoaded && user) {
-        console.log("🟢 useEffect 実行！ユーザー情報:", user);
-        saveUserToDatabase(user); // 🔹 `user` を渡す
-        setSignedIn(true);
-      } else {
-        console.error("❌ Clerk のユーザー情報が取得できていません", user);
+    const saveUserData = async () => {
+      if (isLoaded && isSignedIn && user) {
+        console.log("🟢 ユーザー情報ロード完了:", user);
+        await saveUserToDatabase(user); // 🔥 ここで保存
       }
     };
-    savefunc();
-  }, [user, isLoaded]);
+    saveUserData();
+  }, [user, isLoaded, isSignedIn]);
 
   return (
     <div className='relative min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex flex-col items-center justify-center p-4'>
@@ -30,7 +27,7 @@ export default function Home() {
       </div>
       {/* Authentication button in top-right corner */}
       <div className='absolute top-4 right-4 z-20 flex flex-row'>
-        {signedIn ? (
+        {isSignedIn ? (
           // ログインしている場合はUserButtonを表示
           <div className='scale-150'>
             {/* 拡大サイズを調整 */}
@@ -186,7 +183,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
-function saveUserToDatabase(user: UserResource) {
-  throw new Error("Function not implemented.");
 }
