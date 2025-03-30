@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import KeyboardMap from "./keyboard-map";
 
 export default function PianoHelpModal() {
   const [open, setOpen] = useState(false);
@@ -141,6 +142,16 @@ export default function PianoHelpModal() {
           </section>
 
           <div className='h-px w-full bg-border'></div>
+
+          <main className='flex min-h-screen flex-col items-center justify-center p-4 bg-gray-50'>
+            <h1 className='text-3xl font-bold mb-8 text-center'>
+              バーチャルピアノキーボード
+            </h1>
+            <p className='text-lg mb-8 text-center max-w-2xl'>
+              パソコンのキーボードを使ってピアノを弾くことができます。下の図で、どのキーがどの音に対応しているかを確認しましょう。
+            </p>
+            <KeyboardMap />
+          </main>
 
           <section className='space-y-3'>
             <div className='flex items-center gap-2'>
