@@ -140,7 +140,7 @@ export default function PianoKeyboard({
       </div>
 
       {/* Black keys */}
-      <div className='absolute top-0 left-0 h-3/5 w-full pointer-events-none flex'>
+      <div className='absolute top-0 left-0 h-3/5 w-full pointer-events-none flex z-10'>
         {Array.from({ length: octaveCount * 7 }).map((_, i) => {
           const octave = startOctave + Math.floor(i / 7);
           const whiteKeyIndex = i % 7;
@@ -159,7 +159,7 @@ export default function PianoKeyboard({
               className={`absolute h-full w-[calc(100%/${
                 octaveCount * 14
               })] bg-gray-900 hover:bg-gray-800 active:bg-gray-700 rounded-b-sm pointer-events-auto transition-colors ${
-                isActive ? "bg-gray-700" : ""
+                isActive ? "bg-gray-600" : ""
               }`}
               style={{ left: `${leftOffset}%` }}
               onClick={() => playNote(note)}

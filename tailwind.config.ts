@@ -143,6 +143,10 @@ const config = {
       },
     },
   },
+  safelist: [
+    "w-[calc(100%/42)]",
+    "w-[calc(100%/28)]",
+  ],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 
