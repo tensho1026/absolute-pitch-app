@@ -8,6 +8,7 @@ import QuizPiano from "@/components/quizPiano";
 import { playRandomNote } from "@/features/playRandomNote";
 import Link from "next/link";
 import * as Tone from "tone";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function PerfectPitchQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -20,9 +21,17 @@ export default function PerfectPitchQuiz() {
   const [sustain, setSustain] = useState(0.3);
   const [release, setRelease] = useState(0.5);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [correctNumber, setCorrectNumber] = useState(0);
+
+  const endQuiz = () => {
+    toast.success(
+      `お疲れさまでした　あなたのスコアは${correctNumber}点です！！`
+    );
+  };
 
   return (
-    <div className='relative flex flex-col items-center justify-between min-h-screen p-4 bg-gradient-to-b from-slate-50 to-slate-100 '>
+    <div className='relative flex flex-col items-center justify-between min-h-screen p-4 bg-gradient-to-b from-slate-50 to-slate-100  '>
+      <Toaster position='top-center' />
       <div className='absolute top-2 left-12  '>
         <Link href='/'>
           <Button
@@ -65,8 +74,6 @@ export default function PerfectPitchQuiz() {
 
             <div className='text-lg font-medium'>
               問題: <span className='font-bold'>{currentQuestion}</span> / 10
-           
-           
             </div>
           </div>
 
@@ -86,13 +93,7 @@ export default function PerfectPitchQuiz() {
                 </div>
                 <div className='flex flex-col'>
                   <span className='text-sm text-gray-500'>結果</span>
-                  {isCorrect === null ? (
-                    <span className='text-xl font-bold'>−</span>
-                  ) : isCorrect ? (
-                    <span className='text-xl font-bold text-green-600'>○</span>
-                  ) : (
-                    <span className='text-xl font-bold text-red-600'>×</span>
-                  )}
+                  {correctNumber}
                 </div>
               </div>
             </CardContent>
@@ -107,6 +108,9 @@ export default function PerfectPitchQuiz() {
               setCorrectAnswer(null); // ← 正解の音をクリア！
               setIsCorrect(null);
               setShowAnswer(false);
+              if (userAnswer === correctAnswer) {
+                setCorrectNumber(correctNumber + 1);
+              }
             }}
           >
             次の問題
@@ -123,6 +127,13 @@ export default function PerfectPitchQuiz() {
               console.log("押した音:", note);
               setUserAnswer(note);
               setShowAnswer(true); // ← 正解の表示フラグをオン！
+              if (currentQuestion === 10) {
+                endQuiz();
+                setCurrentQuestion(0);
+                setUserAnswer("");
+                setShowAnswer(false);
+                setCorrectAnswer("");
+              }
             }}
             adsr={{ attack, decay, sustain, release }}
           />
