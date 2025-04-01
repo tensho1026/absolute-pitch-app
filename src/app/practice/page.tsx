@@ -35,7 +35,7 @@ export default function PerfectPitchQuiz() {
       </div>
       <div className='w-full max-w-3xl'>
         <h1 className='text-3xl font-bold text-center mb-8 mt-4'>
-          絶対音感クイズ
+          絶対音感クイズ　練習モード
         </h1>
 
         {/* Top controls section */}
