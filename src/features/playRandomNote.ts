@@ -26,4 +26,5 @@ export const playRandomNote = async () => {
   synth.triggerAttackRelease(randomNote, "8n");
 
   console.log("Played:", randomNote);
+  return randomNote
 };
