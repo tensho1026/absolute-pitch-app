@@ -22,12 +22,39 @@ export default function PerfectPitchQuiz() {
   const [release, setRelease] = useState(0.5);
   const [showAnswer, setShowAnswer] = useState(false);
   const [correctNumber, setCorrectNumber] = useState(0);
+  const [isQuizFinished, setIsQuizFinished] = useState(false);
 
-  const endQuiz = () => {
-    toast.success(
-      `お疲れさまでした　あなたのスコアは${correctNumber}点です！！`
-    );
+  const endQuiz = (finalScore: number) => {
+    toast.success(`お疲れさまでした　あなたのスコアは${finalScore}点です！！`);
   };
+
+  const resetQuiz = () => {
+    setCurrentQuestion(1);
+    setUserAnswer(null);
+    setCorrectAnswer(null);
+    setIsCorrect(null);
+    setCorrectNumber(0); // ← スコアもここでリセット！
+    setShowAnswer(false);
+    setIsQuizFinished(false);
+  };
+
+  if (isQuizFinished) {
+    return (
+      <div className='flex flex-col items-center justify-center min-h-screen text-center'>
+        <Toaster position='top-center' />
+        <h2 className='text-3xl font-bold mb-4'>🎉 クイズ終了！</h2>
+        <p className='text-xl mb-6'>
+          あなたのスコアは {correctNumber} 点でした！
+        </p>
+        <Button
+          className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded'
+          onClick={resetQuiz}
+        >
+          もう一度チャレンジする
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className='relative flex flex-col items-center justify-between min-h-screen p-4 bg-gradient-to-b from-slate-50 to-slate-100  '>
@@ -103,14 +130,40 @@ export default function PerfectPitchQuiz() {
             size='lg'
             className='w-full bg-indigo-600 hover:bg-indigo-700'
             onClick={() => {
+              // 再生ボタンが押されていない＝correctAnswerがnull
+              if (!correctAnswer) {
+                toast.error("まずは再生ボタンを押してください！");
+                return;
+              }
+
+              // ユーザーが答えてない
+              if (!userAnswer) {
+                toast.error("鍵盤を押して答えてください！");
+                return;
+              }
+
+              // 正解処理
+              if (userAnswer === correctAnswer) {
+                setCorrectNumber((prev) => prev + 1);
+              }
+
+              // クイズ終了
+              if (currentQuestion === 10) {
+                const finalScore =
+                  userAnswer === correctAnswer
+                    ? correctNumber + 1
+                    : correctNumber;
+                endQuiz(finalScore);
+                setIsQuizFinished(true);
+
+                return;
+              }
+
+              // 次の問題へ
               setCurrentQuestion((prev) => prev + 1);
               setUserAnswer(null);
-              setCorrectAnswer(null); // ← 正解の音をクリア！
-              setIsCorrect(null);
+              setCorrectAnswer(null);
               setShowAnswer(false);
-              if (userAnswer === correctAnswer) {
-                setCorrectNumber(correctNumber + 1);
-              }
             }}
           >
             次の問題
@@ -122,13 +175,24 @@ export default function PerfectPitchQuiz() {
       <div className='w-full max-w-4xl mb-16 relative h-48'>
         <div className='flex relative h-full'>
           <QuizPiano
-            // onNotePlay={setCurrentNote}
             onNotePlay={(note) => {
               console.log("押した音:", note);
               setUserAnswer(note);
-              setShowAnswer(true); // ← 正解の表示フラグをオン！
+              setShowAnswer(true);
+
               if (currentQuestion === 10) {
-                endQuiz();
+                const isAnswerCorrect = note === correctAnswer;
+                const finalScore = isAnswerCorrect
+                  ? correctNumber + 1
+                  : correctNumber;
+
+                if (isAnswerCorrect) {
+                  setCorrectNumber(finalScore); // UI表示用に更新
+                }
+
+                endQuiz(finalScore); // 最新のスコアをトーストに渡す
+
+                // 状態リセット（任意：次のステップでリトライボタン追加可）
                 setCurrentQuestion(0);
                 setUserAnswer("");
                 setShowAnswer(false);
