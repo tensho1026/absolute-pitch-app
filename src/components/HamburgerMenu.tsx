@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Music, BookOpen, Dumbbell, Trophy, Info, Flame } from "lucide-react";
+import {
+  Music,
+  BookOpen,
+  Dumbbell,
+  Trophy,
+  Info,
+  Flame,
+  ChartBar,
+} from "lucide-react";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +68,7 @@ const HamburgerMenu = () => {
             </li>
             <li>
               <a
-                href='#'
+                href='practice'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Dumbbell size={18} />
@@ -74,6 +82,15 @@ const HamburgerMenu = () => {
               >
                 <Trophy size={18} />
                 <span>Ranking</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href='/mydata'
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
+              >
+                <ChartBar size={18} />
+                <span>My Data</span>
               </a>
             </li>
             <li>
