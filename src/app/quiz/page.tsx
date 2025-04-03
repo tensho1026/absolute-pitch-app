@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Home, Play } from "lucide-react";
+import { Home, Music, Play, Trophy } from "lucide-react";
 import QuizPiano from "@/components/quizPiano";
 import { playRandomNote } from "@/features/playRandomNote";
 import Link from "next/link";
@@ -51,6 +51,11 @@ export default function PerfectPitchQuiz() {
   };
 
   const handleNotePlay = (note: string) => {
+    if (!correctAnswer) {
+      toast.error("まずは再生ボタンを押してください！");
+      return;
+    }
+
     setUserAnswer(note);
     setShowAnswer(true);
 
@@ -61,21 +66,91 @@ export default function PerfectPitchQuiz() {
       setIsFinalQuestionAnswered(true);
     }
   };
-
   if (isQuizFinished) {
     return (
-      <div className='flex flex-col items-center justify-center min-h-screen text-center'>
+      // <div className='flex flex-col items-center justify-center min-h-screen text-center'>
+      //   <Toaster position='top-center' />
+      //   <h2 className='text-3xl font-bold mb-4'>🎉 クイズ終了！</h2>
+      //   <p className='text-xl mb-6'>
+      //     あなたのスコアは {correctNumber} 点でした！
+      //   </p>
+      //   <Button
+      //     className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded'
+      //     onClick={resetQuiz}
+      //   >
+      //     もう一度チャレンジする
+      //   </Button>
+      // </div>
+      <div className='flex flex-col items-center justify-center min-h-screen bg-[#111827] text-center relative overflow-hidden'>
+        {/* ピアノキーボードのような装飾（上部） */}
+        <div className='absolute top-0 w-full flex'>
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={`top-${i}`}
+              className={`h-16 ${
+                i % 2 === 0 ? "w-1/15 bg-[#111827]" : "w-1/15 bg-[#1f2937]"
+              }`}
+            ></div>
+          ))}
+        </div>
+
         <Toaster position='top-center' />
-        <h2 className='text-3xl font-bold mb-4'>🎉 クイズ終了！</h2>
-        <p className='text-xl mb-6'>
-          あなたのスコアは {correctNumber} 点でした！
-        </p>
-        <Button
-          className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded'
-          onClick={resetQuiz}
-        >
-          もう一度チャレンジする
-        </Button>
+
+        <div className='z-10 max-w-md w-full mx-auto px-6 py-12 rounded-lg bg-[#1e293b]/70 backdrop-blur-sm border border-[#334155] shadow-xl'>
+          <div className='flex justify-center mb-6'>
+            <div className='p-4 rounded-full bg-[#f59e0b] text-[#111827]'>
+              <Trophy className='w-12 h-12' />
+            </div>
+          </div>
+
+          <h2 className='text-4xl font-bold mb-4 text-[#f59e0b]'>
+            🎉 クイズ終了！
+          </h2>
+
+          <p className='text-xl mb-8 text-gray-200'>
+            あなたのスコアは{" "}
+            <span className='text-[#f59e0b] font-bold text-2xl'>
+              {correctNumber}
+            </span>{" "}
+            点でした！
+          </p>
+
+          <div className='flex flex-col gap-4'>
+            <Button
+              className='bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-lg text-lg flex items-center justify-center gap-2'
+              onClick={resetQuiz}
+            >
+              <Music className='w-5 h-5' />
+              もう一度チャレンジする
+            </Button>
+
+            <Link href='/'>
+              <Button
+                variant='outline'
+                className='border-gray-600 text-black hover:bg-gray-100 hover:text-gray-800 px-6 py-3 rounded-lg'
+              >
+                ホームに戻る
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* ピアノキーボードのような装飾（下部） */}
+        <div className='absolute bottom-0 w-full flex'>
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={`bottom-${i}`}
+              className={`h-16 ${
+                i % 2 === 0 ? "w-1/15 bg-[#111827]" : "w-1/15 bg-[#1f2937]"
+              }`}
+            ></div>
+          ))}
+        </div>
+
+        {/* サブタイトル */}
+        <div className='absolute bottom-20 w-full text-center text-gray-400 italic'>
+          Master your musical ear through practice and play
+        </div>
       </div>
     );
   }
