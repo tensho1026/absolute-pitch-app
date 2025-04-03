@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, Music, Play, Trophy } from "lucide-react";
@@ -9,6 +9,8 @@ import { playRandomNote } from "@/features/playRandomNote";
 import Link from "next/link";
 import * as Tone from "tone";
 import toast, { Toaster } from "react-hot-toast";
+import { getUserScore } from "@/features/getScore";
+import { updateUserScore } from "@/features/updateScore";
 
 export default function PerfectPitchQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -20,6 +22,23 @@ export default function PerfectPitchQuiz() {
   const [isFinalQuestionAnswered, setIsFinalQuestionAnswered] = useState(false);
 
   const ADSR = { attack: 0.02, decay: 0.1, sustain: 0.3, release: 0.5 };
+
+  useEffect(() => {
+    if (isQuizFinished) {
+      (async () => {
+        const previousScore = await getUserScore();
+        if (previousScore !== null && correctNumber > previousScore) {
+          const success = await updateUserScore(correctNumber);
+
+          if (success) {
+            toast.success("新記録！スコアを更新しました 🎉");
+          } else {
+            toast.error("スコアの更新に失敗しました。");
+          }
+        }
+      })();
+    }
+  }, [isQuizFinished]);
 
   const resetQuiz = () => {
     setCurrentQuestion(1);
@@ -228,3 +247,4 @@ export default function PerfectPitchQuiz() {
     </div>
   );
 }
+
