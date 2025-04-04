@@ -84,7 +84,10 @@ export default function Home() {
           </Link>
 
           {/* クイズカード */}
-          <Link href='/quiz' className='w-full group'>
+          <Link
+            href={isSignedIn ? "/quiz" : "/sign-in"}
+            className='w-full group'
+          >
             <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
               <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center shadow-lg'>
                 <Flame className='w-8 h-8 text-slate-900' />
@@ -125,7 +128,7 @@ export default function Home() {
           </Link>
 
           {/* ランキングカード */}
-          <Link href='/ranking' className='w-full group'>
+          <Link href={isSignedIn ? "/ranking" : "/sign-in"} className='w-full group'>
             <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
               <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center shadow-lg'>
                 <svg
