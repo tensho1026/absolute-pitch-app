@@ -11,6 +11,7 @@ import * as Tone from "tone";
 import toast, { Toaster } from "react-hot-toast";
 import { getUserScore } from "@/features/getScore";
 import { updateUserScore } from "@/features/updateScore";
+import QuizHelpModal from "@/components/quizModal";
 
 export default function PerfectPitchQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -173,6 +174,10 @@ export default function PerfectPitchQuiz() {
             <Home />
           </Button>
         </Link>
+      </div>
+
+      <div className='absolute top-2 right-12'>
+        <QuizHelpModal />
       </div>
 
       <div className='w-full max-w-3xl'>
