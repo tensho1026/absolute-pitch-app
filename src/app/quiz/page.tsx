@@ -12,6 +12,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { getUserScore } from "@/features/getScore";
 import { updateUserScore } from "@/features/updateScore";
 import QuizHelpModal from "@/components/quizModal";
+import { useUser } from "@clerk/nextjs";
+import { saveNoteStat } from "@/features/saveNoteStat";
 
 export default function PerfectPitchQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -23,6 +25,8 @@ export default function PerfectPitchQuiz() {
   const [isFinalQuestionAnswered, setIsFinalQuestionAnswered] = useState(false);
 
   const ADSR = { attack: 0.02, decay: 0.1, sustain: 0.3, release: 0.5 };
+
+  const { user } = useUser();
 
   useEffect(() => {
     if (isQuizFinished) {
@@ -51,13 +55,54 @@ export default function PerfectPitchQuiz() {
     setIsFinalQuestionAnswered(false);
   };
 
-  const handleAnswer = () => {
+  // const handleAnswer = async () => {
+
+  //   if (!correctAnswer || !userAnswer || !user) return;
+
+  // const isCorrect = userAnswer === correctAnswer;
+
+  // // 出題された音（例：C#4, D4, F#4 など）に対して保存
+  // await saveNoteStat({
+  //   userId: user.id,
+  //   note: correctAnswer,
+  //   isCorrect,
+  // });
+  //   if (!correctAnswer)
+  //     return toast.error("まずは再生ボタンを押してください！");
+  //   if (!userAnswer) return toast.error("鍵盤を押して答えてください！");
+
+  //   const isCorrect = userAnswer === correctAnswer;
+  //   if (isCorrect) setCorrectNumber((prev) => prev + 1);
+
+  //   if (currentQuestion === 10) {
+  //     setIsFinalQuestionAnswered(true);
+  //     return;
+  //   }
+
+  //   setCurrentQuestion((prev) => prev + 1);
+  //   setUserAnswer(null);
+  //   setCorrectAnswer(null);
+  //   setShowAnswer(false);
+  // };
+
+  const handleAnswer = async () => {
     if (!correctAnswer)
       return toast.error("まずは再生ボタンを押してください！");
     if (!userAnswer) return toast.error("鍵盤を押して答えてください！");
+    if (!user) return toast.error("ユーザー情報が取得できません");
 
-    const isCorrect = userAnswer === correctAnswer;
-    if (isCorrect) setCorrectNumber((prev) => prev + 1);
+    const isAnswerCorrect = userAnswer === correctAnswer;
+
+    // 出題された音階に対して正誤を記録
+    await saveNoteStat({
+      userId: user.id,
+      note: correctAnswer,
+      isCorrect: isAnswerCorrect,
+    });
+
+    if (isAnswerCorrect) {
+      setCorrectNumber((prev) => prev + 1);
+    }
 
     if (currentQuestion === 10) {
       setIsFinalQuestionAnswered(true);
