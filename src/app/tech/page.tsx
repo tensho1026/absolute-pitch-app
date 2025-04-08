@@ -9,7 +9,7 @@ export default function TechnologiesPage() {
           Technologies
         </h1>
         <p className='text-center text-xl mb-12 text-gray-300'>
-          The tools and frameworks powering Absolute Pitch
+          Technologies Empowering This App
         </p>
         <TechShowcase />
       </main>

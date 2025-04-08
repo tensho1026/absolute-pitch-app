@@ -97,7 +97,7 @@ export default function RankingPage() {
                 return (
                   <TableRow
                     key={index}
-                    className={`border-gray-700 hover:bg-[#232f4a] ${
+                    className={`border-gray-700 hover:bg-[#232f4a] text-white ${
                       index < 3 ? "bg-opacity-20" : ""
                     }`}
                   >
