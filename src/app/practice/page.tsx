@@ -9,6 +9,7 @@ import { playRandomNote } from "@/features/playRandomNote";
 import Link from "next/link";
 import * as Tone from "tone";
 import toast, { Toaster } from "react-hot-toast";
+import QuizResultCard from "@/components/QuizResultCard";
 
 export default function PerfectPitchPractice() {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
@@ -80,7 +81,7 @@ export default function PerfectPitchPractice() {
             </Button>
           </div>
 
-          <Card className='w-full'>
+          {/* <Card className='w-full'>
             <CardContent className='p-4'>
               <div className='grid grid-cols-2 gap-4 text-center'>
                 <div className='flex flex-col'>
@@ -94,6 +95,16 @@ export default function PerfectPitchPractice() {
                   </span>
                 </div>
               </div>
+            </CardContent>
+          </Card> */}
+          <Card className='w-full'>
+            <CardContent className='p-4'>
+              <QuizResultCard
+                userAnswer={userAnswer}
+                correctAnswer={correctAnswer}
+                showAnswer={showAnswer}
+                showScore={false}
+              />
             </CardContent>
           </Card>
 
