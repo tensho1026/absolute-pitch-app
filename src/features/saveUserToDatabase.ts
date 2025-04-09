@@ -1,6 +1,4 @@
 import { supabase } from "@/supabase/supabase.config";
-import { useUser } from "@clerk/nextjs";
-import { createClient } from "@supabase/supabase-js";
 
 // export const saveUserToDatabase = async (user: any) => {
 export async function saveUserToDatabase(user: any) {
