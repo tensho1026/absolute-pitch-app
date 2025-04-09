@@ -14,6 +14,7 @@ import { updateUserScore } from "@/features/updateScore";
 import QuizHelpModal from "@/components/quizModal";
 import { useUser } from "@clerk/nextjs";
 import { saveNoteStat } from "@/features/saveNoteStat";
+import QuizResultCard from "@/components/QuizResultCard";
 
 export default function PerfectPitchQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -104,18 +105,6 @@ export default function PerfectPitchQuiz() {
   if (isQuizFinished) {
     return (
       <div className='flex flex-col items-center justify-center min-h-screen bg-[#111827] text-center relative overflow-hidden'>
-        {/* ピアノキーボードのような装飾（上部） */}
-        <div className='absolute top-0 w-full flex'>
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={`top-${i}`}
-              className={`h-16 ${
-                i % 2 === 0 ? "w-1/15 bg-[#111827]" : "w-1/15 bg-[#1f2937]"
-              }`}
-            ></div>
-          ))}
-        </div>
-
         <Toaster position='top-center' />
 
         <div className='z-10 max-w-md w-full mx-auto px-6 py-12 rounded-lg bg-[#1e293b]/70 backdrop-blur-sm border border-[#334155] shadow-xl'>
@@ -155,18 +144,6 @@ export default function PerfectPitchQuiz() {
               </Button>
             </Link>
           </div>
-        </div>
-
-        {/* ピアノキーボードのような装飾（下部） */}
-        <div className='absolute bottom-0 w-full flex'>
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={`bottom-${i}`}
-              className={`h-16 ${
-                i % 2 === 0 ? "w-1/15 bg-[#111827]" : "w-1/15 bg-[#1f2937]"
-              }`}
-            ></div>
-          ))}
         </div>
 
         {/* サブタイトル */}
@@ -226,22 +203,12 @@ export default function PerfectPitchQuiz() {
 
           <Card className='w-full'>
             <CardContent className='p-4'>
-              <div className='grid grid-cols-3 gap-4 text-center'>
-                <div className='flex flex-col'>
-                  <span className='text-sm text-gray-500'>あなたの答え</span>
-                  <span className='text-xl font-bold'>{userAnswer || "−"}</span>
-                </div>
-                <div className='flex flex-col'>
-                  <span className='text-sm text-gray-500'>正解</span>
-                  <span className='text-xl font-bold'>
-                    {showAnswer ? correctAnswer || "−" : "−"}
-                  </span>
-                </div>
-                <div className='flex flex-col'>
-                  <span className='text-sm text-gray-500'>結果</span>
-                  {correctNumber}
-                </div>
-              </div>
+              <QuizResultCard
+                userAnswer={userAnswer}
+                correctAnswer={correctAnswer}
+                showAnswer={showAnswer}
+                score={correctNumber}
+              />
             </CardContent>
           </Card>
 
