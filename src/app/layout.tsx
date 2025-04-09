@@ -23,16 +23,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const [showLoading, setShowLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
+  const [firstLoadDone, setFirstLoadDone] = useState(false); // 初回判定用
 
   useEffect(() => {
+    if (!firstLoadDone) {
+      setFirstLoadDone(true); // 初回は何もせず終了
+      return;
+    }
+
+    // 遷移時のみローディングを表示
     setShowLoading(true);
     const timer = setTimeout(() => {
       setShowLoading(false);
-    }, 1500); // ← 1.5秒に設定
+    }, 1500); // ← 表示時間：1.5秒
 
     return () => clearTimeout(timer);
-  }, [pathname]); // ← URLが変わるたびに実行される
+  }, [pathname]);
 
   return (
     <ClerkProvider>
