@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import { Music, BookOpen, LogIn, Flame } from "lucide-react";
+import { Music, LogIn, Flame } from "lucide-react";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import { saveUserToDatabase } from "@/features/saveUserToDatabase";
+import CardLink from "@/components/CardLink";
+import PianoDecoration from "@/components/PianoDecoration";
 
 export default function Home() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -12,8 +14,8 @@ export default function Home() {
   useEffect(() => {
     const saveUserData = async () => {
       if (isLoaded && isSignedIn && user) {
-        console.log("🟢 ユーザー情報ロード完了:", user);
-        await saveUserToDatabase(user); // 🔥 ここで保存
+        // console.log("🟢 ユーザー情報ロード完了:", user);
+        await saveUserToDatabase(user); //  ここで保存
       }
     };
     saveUserData();
@@ -44,19 +46,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* 装飾的なピアノキー要素 */}
-      <div className='absolute top-0 left-0 w-full h-16 flex overflow-hidden'>
-        {[...Array(24)].map((_, i) => (
-          <div
-            key={i}
-            className={`h-full ${
-              [1, 3, 6, 8, 10].includes(i % 12)
-                ? "bg-slate-800 w-[4%]"
-                : "bg-white w-[6%]"
-            } border-l border-slate-300`}
-          />
-        ))}
-      </div>
+      <PianoDecoration position='top' />
 
       <div className='relative z-10 flex flex-col items-center max-w-3xl w-full text-center'>
         {/* タイトルとサブタイトル */}
@@ -69,99 +59,81 @@ export default function Home() {
 
         {/* メインコンテンツ */}
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl'>
-          {/* ピアノカード */}
-          <Link href='/piano' className='w-full group'>
-            <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
-              <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg'>
-                <Music className='w-8 h-8 text-slate-900' />
-              </div>
-              <h2 className='text-2xl font-bold text-white mb-2'>Play Piano</h2>
-              <p className='text-slate-400 text-sm'>
-                Practice your skills on our virtual keyboard
-              </p>
-            </div>
-          </Link>
+          {/* 🎹 Piano */}
+          <CardLink
+            href='/piano'
+            icon={<Music className='w-8 h-8 text-slate-900' />}
+            title='Play Piano'
+            description='Practice your skills on our virtual keyboard'
+            iconBg='bg-gradient-to-br from-amber-400 to-amber-600'
+          />
 
-          {/* クイズカード */}
-          <Link
+          {/* 🔥 Quiz */}
+          <CardLink
             href={isSignedIn ? "/quiz" : "/sign-in"}
-            className='w-full group'
-          >
-            <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
-              <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center shadow-lg'>
-                <Flame className='w-8 h-8 text-slate-900' />
-              </div>
-              <h2 className='text-2xl font-bold text-white mb-2'>Challenge</h2>
-              <p className='text-slate-400 text-sm'>
-                Test your absolute pitch with our challenges
-              </p>
-            </div>
-          </Link>
+            icon={<Flame className='w-8 h-8 text-slate-900' />}
+            title='Challenge'
+            description='Test your absolute pitch with our challenges'
+            iconBg='bg-gradient-to-br from-slate-400 to-slate-600'
+          />
 
-          {/* プラクティスカード */}
-          <Link href='/practice' className='w-full group'>
-            <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
-              <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='w-8 h-8 text-slate-900'
-                >
-                  <path d='M2 12a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V7H2Z'></path>
-                  <path d='M6 11c1.5 0 3 .5 3 2-2 0-3 0-3-2Z'></path>
-                  <path d='M18 11c-1.5 0-3 .5-3 2 2 0 3 0 3-2Z'></path>
-                </svg>
-              </div>
-              <h2 className='text-2xl font-bold text-white mb-2'>Practice</h2>
-              <p className='text-slate-400 text-sm'>
-                Daily exercises to improve your musical ear
-              </p>
-            </div>
-          </Link>
+          {/* 📘 Practice */}
+          <CardLink
+            href='/practice'
+            icon={
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='w-8 h-8 text-slate-900'
+              >
+                <path d='M2 12a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V7H2Z' />
+                <path d='M6 11c1.5 0 3 .5 3 2-2 0-3 0-3-2Z' />
+                <path d='M18 11c-1.5 0-3 .5-3 2 2 0 3 0 3-2Z' />
+              </svg>
+            }
+            title='Practice'
+            description='Daily exercises to improve your musical ear'
+            iconBg='bg-gradient-to-br from-amber-500 to-amber-700'
+          />
 
-          {/* ランキングカード */}
-          <Link
+          {/* 🏆 Ranking */}
+          <CardLink
             href={isSignedIn ? "/ranking" : "/sign-in"}
-            className='w-full group'
-          >
-            <div className='bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-amber-400/50 transition-all duration-300 shadow-lg hover:shadow-amber-900/20 h-full flex flex-col items-center justify-center group-hover:transform group-hover:-translate-y-1'>
-              <div className='w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center shadow-lg'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='w-8 h-8 text-slate-900'
-                >
-                  <path d='M12 6v12'></path>
-                  <path d='M17 18V6'></path>
-                  <path d='M7 18V6'></path>
-                  <path d='M17 9h4'></path>
-                  <path d='M7 9H3'></path>
-                  <path d='M21 14h-4'></path>
-                  <path d='M3 14h4'></path>
-                  <path d='M17 6h2a2 2 0 0 1 2 2v12'></path>
-                  <path d='M7 18H5a2 2 0 0 1-2-2V6'></path>
-                </svg>
-              </div>
-              <h2 className='text-2xl font-bold text-white mb-2'>Ranking</h2>
-              <p className='text-slate-400 text-sm'>
-                See how you compare with other musicians
-              </p>
-            </div>
-          </Link>
+            icon={
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='w-8 h-8 text-slate-900'
+              >
+                <path d='M12 6v12' />
+                <path d='M17 18V6' />
+                <path d='M7 18V6' />
+                <path d='M17 9h4' />
+                <path d='M7 9H3' />
+                <path d='M21 14h-4' />
+                <path d='M3 14h4' />
+                <path d='M17 6h2a2 2 0 0 1 2 2v12' />
+                <path d='M7 18H5a2 2 0 0 1-2-2V6' />
+              </svg>
+            }
+            title='Ranking'
+            description='See how you compare with other musicians'
+            iconBg='bg-gradient-to-br from-slate-400 to-slate-600'
+          />
         </div>
 
         {/* 装飾的な音符 */}
@@ -173,19 +145,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 装飾的なピアノキー要素（下部） */}
-      <div className='absolute bottom-0 left-0 w-full h-16 flex overflow-hidden rotate-180'>
-        {[...Array(24)].map((_, i) => (
-          <div
-            key={i}
-            className={`h-full ${
-              [1, 3, 6, 8, 10].includes(i % 12)
-                ? "bg-slate-800 w-[4%]"
-                : "bg-white w-[6%]"
-            } border-l border-slate-300`}
-          />
-        ))}
-      </div>
+      <PianoDecoration position='bottom' />
     </div>
   );
 }

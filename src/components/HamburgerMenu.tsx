@@ -10,6 +10,7 @@ import {
   Flame,
   ChartBar,
 } from "lucide-react";
+import Link from "next/link";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,58 +50,58 @@ const HamburgerMenu = () => {
         <div className='absolute top-full left-0 bg-[#111827] text-white p-4 mt-2 rounded-md shadow-lg z-50 border border-white/10 min-w-[200px]'>
           <ul className='space-y-3 flex flex-col'>
             <li>
-              <a
+              <Link
                 href='/piano'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Music size={18} />
                 <span>Play Piano</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='/quiz'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Flame size={18} />
                 <span>Challenge</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='practice'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Dumbbell size={18} />
                 <span>Practice</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='/ranking'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Trophy size={18} />
                 <span>Ranking</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='/mydata'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <ChartBar size={18} />
                 <span>My Data</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href='/tech'
                 className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a2438] transition-colors duration-200'
               >
                 <Info size={18} />
                 <span>使用技術の説明</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

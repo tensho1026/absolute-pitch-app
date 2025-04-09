@@ -7,7 +7,7 @@ export async function getUserScore(): Promise<number | null> {
   const { userId } = await auth();
 
   if (!userId) {
-    console.error("ユーザーが認証されていません。");
+    // console.error("ユーザーが認証されていません。");
     return null;
   }
 
@@ -18,10 +18,10 @@ export async function getUserScore(): Promise<number | null> {
     .single();
 
   if (error) {
-    console.error("スコアの取得に失敗しました:", error);
+    // console.error("スコアの取得に失敗しました:", error);
     return null;
   }
 
-  console.log("取得したスコア:", data.score);
+  // console.log("取得したスコア:", data.score);
   return data.score;
 }

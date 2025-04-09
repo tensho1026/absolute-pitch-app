@@ -8,7 +8,7 @@ export async function getDbUserId() {
   const { userId: clerkId } = await auth(); // ClerkのIDを取得
 
   if (!clerkId) {
-    console.error("User is not authenticated");
+    // console.error("User is not authenticated");
     return null;
   }
 
@@ -20,10 +20,10 @@ export async function getDbUserId() {
     .single();
 
   if (error) {
-    console.error("Supabase からユーザーIDを取得できませんでした:", error);
+    // console.error("Supabase からユーザーIDを取得できませんでした:", error);
     return null;
   }
 
-  console.log("Supabase から取得したユーザーID:", data.id);
+  // console.log("Supabase から取得したユーザーID:", data.id);
   return data.id;
 }
