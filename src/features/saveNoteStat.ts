@@ -18,7 +18,7 @@ export async function saveNoteStat({
     .single();
 
   if (fetchError && fetchError.code !== "PGRST116") {
-    console.error("取得失敗:", fetchError.message);
+    // console.error("取得失敗:", fetchError.message);
     return false;
   }
 
@@ -37,7 +37,7 @@ export async function saveNoteStat({
       .eq("id", existing.id);
 
     if (updateError) {
-      console.error("更新失敗:", updateError.message);
+      // console.error("更新失敗:", updateError.message);
       return false;
     }
   } else {
@@ -52,7 +52,7 @@ export async function saveNoteStat({
     ]);
 
     if (insertError) {
-      console.error("新規挿入失敗:", insertError.message);
+      // console.error("新規挿入失敗:", insertError.message);
       return false;
     }
   }

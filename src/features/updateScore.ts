@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 export async function updateUserScore(newScore: number): Promise<boolean> {
   const { userId } = await auth();
   if (!userId) {
-    console.error("認証されていません。");
+    // console.error("認証されていません。");
     return false;
   }
 
@@ -16,7 +16,7 @@ export async function updateUserScore(newScore: number): Promise<boolean> {
     .eq("id", userId);
 
   if (error) {
-    console.error("スコアの更新に失敗:", error);
+    // console.error("スコアの更新に失敗:", error);
     return false;
   }
 
