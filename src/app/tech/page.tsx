@@ -1,5 +1,4 @@
 import TechShowcase from "@/components/tech-showcase";
-import type { Metadata } from "next";
 
 export default function TechnologiesPage() {
   return (

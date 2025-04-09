@@ -1,4 +1,3 @@
-// app/actions/updateUserScore.ts
 "use server";
 
 import { supabase } from "@/supabase/supabase.config";
@@ -23,4 +22,3 @@ export async function updateUserScore(newScore: number): Promise<boolean> {
 
   return true;
 }
-
