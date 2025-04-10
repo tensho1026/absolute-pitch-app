@@ -28,6 +28,30 @@
 - **アニメーション・UI補助**：  
   framer-motion, lucide-react, react-hot-toast, react-icons
 
+
+## 🗂 各ページの紹介
+
+### 🎹 Play Piano  
+自由に仮想キーボードを演奏できるページです。音を確かめたり、自主練習に使ったり、耳を慣らすための基礎トレーニングに活用できます。
+![image](https://github.com/user-attachments/assets/f66c2019-4256-4ef6-9374-150b9863baf0)
+
+### 🔥 Challenge  
+ランダムに鳴る音を聴き取って答えるクイズ形式のモードです。正答数に応じてスコアが決まり、集中力と音感が試されます。
+![image](https://github.com/user-attachments/assets/25cd3d11-fedc-49c1-b1c2-5c77cf282656)
+
+### 🏆 Ranking  
+チャレンジモードで獲得したスコアのランキングが表示されます。他のユーザーと自分の成績を比較して、モチベーションを維持できます。
+![image](https://github.com/user-attachments/assets/f0ffdfcd-2d81-4175-af87-321535f5e013)
+
+### 📊 My Data  
+自分がこれまでチャレンジしたクイズの記録を確認できます。正解・不正解の傾向をグラフで視覚的に把握し、得意な音・苦手な音を分析できます。
+![image](https://github.com/user-attachments/assets/b3d7886a-3340-41dd-b7d2-392ea0977536)
+
+### 🧪 Tech Info（技術紹介ページ）  
+このアプリで使われている技術スタックや、技術選定理由をまとめた技術紹介ページです。開発者や技術に興味のある方向け。
+![image](https://github.com/user-attachments/assets/64127fd5-2103-427f-b95d-fd22a7042d50)
+
+
 ---
 
 ## 🚀 デプロイ先
