@@ -1,19 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Medal, Home } from "lucide-react";
+import { Trophy, Home } from "lucide-react";
 import { Button } from "@/components/button";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import BarsStripe from "@/components/BarsStripe";
+import RankingTable from "@/components/RankingTable";
 
 type Ranking = {
   username: string;
@@ -21,7 +14,6 @@ type Ranking = {
 };
 
 export default function RankingPage() {
-  const { user } = useUser(); // ← Clerkのユーザー情報
   const [rankings, setRankings] = useState<Ranking[]>([]);
 
   useEffect(() => {
@@ -48,18 +40,9 @@ export default function RankingPage() {
         </Link>
       </div>
 
-      {/* 装飾 */}
+      {/* // 上部 */}
       <div className='w-full flex justify-center mb-4'>
-        <div className='flex w-full max-w-4xl'>
-          {[...Array(16)].map((_, i) => (
-            <div
-              key={i}
-              className={`h-8 flex-1 ${
-                i % 2 === 0 ? "bg-white" : "bg-[#121c2d]"
-              }`}
-            />
-          ))}
-        </div>
+        <BarsStripe />
       </div>
 
       <h1 className='text-5xl font-bold text-[#f0c14b] mb-2 text-center'>
@@ -77,73 +60,13 @@ export default function RankingPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className='p-6'>
-          <Table>
-            <TableHeader>
-              <TableRow className='border-gray-700 hover:bg-[#1a2942]'>
-                <TableHead className='text-gray-300 w-16 text-center'>
-                  Rank
-                </TableHead>
-                <TableHead className='text-gray-300'>Username</TableHead>
-                <TableHead className='text-gray-300 text-right'>
-                  Score
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody>
-              {rankings.map((rank, index) => {
-                const isCurrentUser = rank.username === user?.fullName;
-
-                return (
-                  <TableRow
-                    key={index}
-                    className={`border-gray-700 hover:bg-[#232f4a] text-white ${
-                      index < 3 ? "bg-opacity-20" : ""
-                    }`}
-                  >
-                    <TableCell className='font-medium text-center'>
-                      {index === 0 ? (
-                        <div className='inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#f0c14b] text-[#121c2d]'>
-                          <Trophy className='h-5 w-5' />
-                        </div>
-                      ) : index < 3 ? (
-                        <div className='inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-400 text-[#121c2d]'>
-                          <Medal className='h-5 w-5' />
-                        </div>
-                      ) : (
-                        index + 1
-                      )}
-                    </TableCell>
-                    <TableCell
-                      className={
-                        isCurrentUser ? "font-bold text-[#f0c14b]" : ""
-                      }
-                    >
-                      {rank.username}
-                    </TableCell>
-                    <TableCell className='text-right font-bold text-[#f0c14b]'>
-                      {rank.score}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <RankingTable rankings={rankings} />
         </CardContent>
       </Card>
 
-      {/* フッター装飾 */}
+      {/* // 下部 */}
       <div className='w-full flex justify-center mt-8'>
-        <div className='flex w-full max-w-4xl'>
-          {[...Array(16)].map((_, i) => (
-            <div
-              key={i}
-              className={`h-8 flex-1 ${
-                i % 2 === 0 ? "bg-white" : "bg-[#121c2d]"
-              }`}
-            />
-          ))}
-        </div>
+        <BarsStripe />
       </div>
     </div>
   );
