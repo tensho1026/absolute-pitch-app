@@ -41,7 +41,8 @@
 
 ### 🏆 Ranking  
 チャレンジモードで獲得したスコアのランキングが表示されます。他のユーザーと自分の成績を比較して、モチベーションを維持できます。
-![image](https://github.com/user-attachments/assets/f0ffdfcd-2d81-4175-af87-321535f5e013)
+![image](https://github.com/user-attachments/assets/9167e887-1836-456b-a6ea-511d21e35c2a)
+
 
 ### 📊 My Data  
 自分がこれまでチャレンジしたクイズの記録を確認できます。正解・不正解の傾向をグラフで視覚的に把握し、得意な音・苦手な音を分析できます。
