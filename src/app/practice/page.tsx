@@ -30,15 +30,18 @@ export default function PerfectPitchPractice() {
     }
   };
 
+  const resetState = () => {
+    setUserAnswer(null);
+    setCorrectAnswer(null);
+    setShowAnswer(false);
+  };
+
   // 次の問題へ（再生してないと警告）
   const handleAnswer = () => {
     if (!correctAnswer)
       return toast.error("まずは再生ボタンを押してください！");
     if (!userAnswer) return toast.error("鍵盤を押して答えてください！");
-
-    setUserAnswer(null);
-    setCorrectAnswer(null);
-    setShowAnswer(false);
+    resetState();
   };
 
   // 鍵盤を押したときの処理
@@ -81,22 +84,6 @@ export default function PerfectPitchPractice() {
             </Button>
           </div>
 
-          {/* <Card className='w-full'>
-            <CardContent className='p-4'>
-              <div className='grid grid-cols-2 gap-4 text-center'>
-                <div className='flex flex-col'>
-                  <span className='text-sm text-gray-500'>あなたの答え</span>
-                  <span className='text-xl font-bold'>{userAnswer || "−"}</span>
-                </div>
-                <div className='flex flex-col'>
-                  <span className='text-sm text-gray-500'>正解</span>
-                  <span className='text-xl font-bold'>
-                    {showAnswer ? correctAnswer || "−" : "−"}
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Card> */}
           <Card className='w-full'>
             <CardContent className='p-4'>
               <QuizResultCard
