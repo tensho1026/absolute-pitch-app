@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎹 音感ラボ - Master Your Absolute Pitch
 
-## Getting Started
+**音感ラボ**は、楽しみながら絶対音感を鍛えることができるWebアプリです。  
 
-First, run the development server:
+![アプリのトップページ](./スクリーンショット%202025-04-10%20234918.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧩 主な機能
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| 機能名 | 説明 |
+|--------|------|
+| 🎹 ピアノ演奏ページ | 仮想キーボードで自由に演奏できます |
+| 🎯 絶対音感クイズ練習ページ | 音を聴いて音名を当てる練習ができます |
+| 🔥 チャレンジモード | ランダムに出題される音を制限時間内に判定 |
+| 🏆 スコアランキング | 他のユーザーとスコアを比較できます |
+| 📊 自己分析ページ | 正解・不正解の傾向を確認できます |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ 使用技術スタック
 
-## Learn More
+- **フレームワーク**：Next.js, TypeScript  
+- **スタイリング**：Tailwind CSS, shadcn/ui  
+- **認証**：Clerk  
+- **データベース**：Supabase  
+- **音声処理**：Tone.js  
+- **グラフ描画**：Recharts  
+- **アニメーション・UI補助**：  
+  framer-motion, lucide-react, react-hot-toast, react-icons
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 デプロイ先
+- **Vercel** にてホスティング
