@@ -2,7 +2,7 @@
 
 **音感ラボ**は、楽しみながら絶対音感を鍛えることができるWebアプリです。  
 
-(https://github.com/user-attachments/assets/9f8d362b-7987-4901-9b6e-8cfeb7391d41)
+![image](https://github.com/user-attachments/assets/9f8d362b-7987-4901-9b6e-8cfeb7391d41)
 
 
 ## 🧩 主な機能
