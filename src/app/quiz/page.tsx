@@ -30,11 +30,29 @@ export default function PerfectPitchQuiz() {
 
   const { user } = useUser();
 
+  // useEffect(() => {
+  //   if (isQuizFinished) {
+  //     (async () => {
+  //       const previousScore = await getUserScore();
+  //       if (previousScore !== null && correctNumber > previousScore) {
+  //         const success = await updateUserScore(correctNumber);
+
+  //         if (success) {
+  //           toast.success("新記録！スコアを更新しました 🎉");
+  //         } else {
+  //           toast.error("スコアの更新に失敗しました。");
+  //         }
+  //       }
+  //     })();
+  //   }
+  // }, [isQuizFinished]);
   useEffect(() => {
     if (isQuizFinished) {
       (async () => {
         const previousScore = await getUserScore();
-        if (previousScore !== null && correctNumber > previousScore) {
+
+        // 初プレイ（前回スコアが null） or 新記録の場合に保存を試みる
+        if (previousScore === null || correctNumber > previousScore) {
           const success = await updateUserScore(correctNumber);
 
           if (success) {
@@ -42,6 +60,9 @@ export default function PerfectPitchQuiz() {
           } else {
             toast.error("スコアの更新に失敗しました。");
           }
+        } else {
+          // 記録更新なし
+          toast("今回のスコアは更新されませんでした 👀");
         }
       })();
     }
@@ -110,7 +131,6 @@ export default function PerfectPitchQuiz() {
 
   return (
     <div className='relative flex flex-col items-center justify-between min-h-screen p-4 bg-gradient-to-b from-slate-50 to-slate-100'>
-      <Toaster position='top-center' />
       <div className='absolute top-2 left-12'>
         <Link href='/'>
           <Button

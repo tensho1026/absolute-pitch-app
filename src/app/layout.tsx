@@ -6,6 +6,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import LoadingScreen from "@/components/loading-screen";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           {showLoading ? <LoadingScreen /> : children}
+          <Toaster position="top-center" />
         </body>
       </html>
     </ClerkProvider>
