@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
+import { getDbUserId } from "@/features/getUserId";
 
 type Stat = {
   note: string;
@@ -21,19 +22,23 @@ type Stat = {
 
 export default function NoteStatsChart({ stats }: { stats: Stat[] }) {
   const { user } = useUser();
+ 
   return (
     <Card className='w-full bg-[#0f172a] border-none shadow-lg'>
       <CardHeader className='pb-2 space-y-2'>
         <CardTitle className='text-xl font-bold text-[#fcd34d]'>
-          {user?.fullName}のクイズデータ
+          {user?.fullName || "Unknown" }のクイズデータ
         </CardTitle>
 
         {(() => {
-          const statsWithAccuracy = stats.map((s) => {
-            const total = s.correct_count + s.wrong_count;
-            const accuracy = total > 0 ? s.correct_count / total : 0;
-            return { ...s, accuracy };
-          });
+          const statsWithAccuracy = stats
+            .map((s) => {
+              const total = s.correct_count + s.wrong_count;
+              if (total === 0) return null; // 出題なし → 除外
+              const accuracy = s.correct_count / total;
+              return { ...s, accuracy };
+            })
+            .filter((s): s is Stat & { accuracy: number } => s !== null); // nullを除外
 
           const maxAccuracy = Math.max(
             ...statsWithAccuracy.map((s) => s.accuracy)
@@ -62,7 +67,6 @@ export default function NoteStatsChart({ stats }: { stats: Stat[] }) {
         })()}
       </CardHeader>
       <CardContent>
-        
         <div className='w-full h-80'>
           <ResponsiveContainer width='100%' height='100%'>
             <BarChart

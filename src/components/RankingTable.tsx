@@ -13,6 +13,7 @@ import { useUser } from "@clerk/nextjs";
 type Ranking = {
   username: string;
   score: number;
+  userId: string;
 };
 
 type Props = {
@@ -34,7 +35,7 @@ export default function RankingTable({ rankings }: Props) {
 
       <TableBody>
         {rankings.map((rank, index) => {
-          const isCurrentUser = rank.username === user?.fullName;
+          const isCurrentUser = rank.userId === user?.id;
           const isTopThree = index < 3;
 
           return (
@@ -60,7 +61,7 @@ export default function RankingTable({ rankings }: Props) {
               <TableCell
                 className={isCurrentUser ? "font-bold text-[#f0c14b]" : ""}
               >
-                {rank.username}
+                {rank.username || "(No Name)"}
               </TableCell>
               <TableCell className='text-right font-bold text-[#f0c14b]'>
                 {rank.score}
