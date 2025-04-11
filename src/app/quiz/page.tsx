@@ -30,22 +30,6 @@ export default function PerfectPitchQuiz() {
 
   const { user } = useUser();
 
-  // useEffect(() => {
-  //   if (isQuizFinished) {
-  //     (async () => {
-  //       const previousScore = await getUserScore();
-  //       if (previousScore !== null && correctNumber > previousScore) {
-  //         const success = await updateUserScore(correctNumber);
-
-  //         if (success) {
-  //           toast.success("新記録！スコアを更新しました 🎉");
-  //         } else {
-  //           toast.error("スコアの更新に失敗しました。");
-  //         }
-  //       }
-  //     })();
-  //   }
-  // }, [isQuizFinished]);
   useEffect(() => {
     if (isQuizFinished) {
       (async () => {
