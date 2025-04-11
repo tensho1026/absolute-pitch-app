@@ -11,6 +11,7 @@ import RankingTable from "@/components/RankingTable";
 type Ranking = {
   username: string;
   score: number;
+  userId: string;
 };
 
 export default function RankingPage() {
