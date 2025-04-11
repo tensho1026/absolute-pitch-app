@@ -1,7 +1,9 @@
-# 🎹 [音感ラボ](https://absolute-pitch-ten.vercel.app/) - Master Your Absolute Pitch
+# 🎹 音感ラボ- Master Your Absolute Pitch
 
 
-**音感ラボ**は、楽しみながら絶対音感を鍛えることができるWebアプリです。  
+**音感ラボ**は、楽しみながら絶対音感を鍛えることができるWebアプリです。
+
+🚀 デプロイ URL: https://absolute-pitch-ten.vercel.app/
 
 
 ![image](https://github.com/user-attachments/assets/9f8d362b-7987-4901-9b6e-8cfeb7391d41)
