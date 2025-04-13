@@ -8,7 +8,7 @@ import QuizPiano from "@/components/quizPiano";
 import { playRandomNote } from "@/features/playRandomNote";
 import Link from "next/link";
 import * as Tone from "tone";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { getUserScore } from "@/features/getScore";
 import { updateUserScore } from "@/features/updateScore";
 import QuizHelpModal from "@/components/quizModal";
